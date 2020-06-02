@@ -13,11 +13,11 @@
     <link rel="icon" size="192x192" href="images/android-icon-192x192.png">
     <link rel="stylesheet" href="stylesheet.css" type="text/css">
   </head>
-  <body>
+  <body onload="downloadApp()">
 
     <div class="sidenav">
       <a href="index.html"><u><b>Home</b></u></a>
-      <a href="convertontheweb.html"><u><b>Text to html converter - on the web beta</b></u></a>
+      <a href="https://modernhtmldesigngithub.github.io/Convert-on-the-web"><u><b>Text to HTML Converter</b></u></a>
       <a href="https://github.com/ModernHtmlDesignGitHub"><u>MHD</u></a>
       <!--<a href="#contact">Contact</a>-->
     </div>
@@ -49,12 +49,20 @@
   var returnos = getOS();
   </script>
 <div class="div">
-    <button type="button" onclick="osName()" class="getosbutton">Get OS Name</button>
+    <button type="button blockbutton" onclick="osName()" class="getosbutton">Get OS Name</button><br><br>
+    <button type="button blockbutton" onclick="getbrowser()" class="getosbutton">Get Browser Name</button>
 <h2 style="text-align: center;">Your OS is:</h2>
 <h2 id="os">Click 'Get OS Name' to show your OS.</h2>
-<button type="button" class="resetosbutton"onclick="resetOS()">Clear OS Name</button>
+<h2 id="browser">Click 'Get Browser Name' to show your Browser.</h2>
+<button type="button" class="clearname resetosbutton" onclick="resetOS()">Clear OS Name</button>
+<button type="button" class="clearname resetosbutton" onclick="resetbrowser()">Clear Browser Name</button>
+<button type="button" class="clearname resetosbutton" onclick="reset()">Clear OS and Browser Name</button>
 </div>
 <script>
+function reset() {
+  document.getElementById("os").innerHTML = "Click 'Get OS Name' to show your OS.";
+  document.getElementById("browser").innerHTML = "Click 'Get Browser Name' to show your Browser."
+}
 function osName() { 
   document.getElementById("os").innerHTML = returnos;
 }
@@ -63,12 +71,89 @@ function resetOS() {
     String(resetOSname);
     document.getElementById("os").innerHTML = resetOSname;
 }
+function resetbrowser() {
+  var resetBrowserName = "Click 'Get Browser Name' to show your Browser.";
+  String(resetBrowserName);
+  document.getElementById("browser").innerHTML = resetBrowserName;
+}
 </script>
+<script>
+
+  function getbrowser() { 
+   if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
+  {
+    document.getElementById("browser").innerHTML = 'Opera';
+  }
+  else if(navigator.userAgent.indexOf("Chrome") != -1 )
+  {
+    document.getElementById("browser").innerHTML = 'Chrome/Chromium/Edge';
+  }
+  else if(navigator.userAgent.indexOf("Safari") != -1)
+  {
+    document.getElementById("browser").innerHTML = 'Safari';
+  }
+  else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
+  {
+    document.getElementById("browser").innerHTML = 'Mozilla Firefox';
+  }
+else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+  {
+    document.getElementById("browser").innerHTML = "Microsoft Internet Explorer/Microsoft's oldest browser";
+  }  
+  else 
+  {
+    document.getElementById("browser").innerHTML = "Couldn't detect your browser! Check the console log!";
+    console.log("unsupported Browser")
+  }
+  }
+</script>
+
 <br>
 <br>
-<a href="https://github.com/ModernHtmlDesignGitHub" target="_blank">
-<button class="getosbutton">Modern HTML Design on GitHub</button>
-</a>
+    <script type="text/javascript">function downloadApp() {
+        var userAgent = window.navigator.userAgent,
+            platform = window.navigator.platform,
+            macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+            windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+            iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+	        scriptdownload = null;
+        if (macosPlatforms.indexOf(platform) !== -1) {
+          scriptdownload = 'Download for macOS';
+          document.getElementById("windows").hidden = true;
+          alert("This has not been tested. Please contect modernhtmldesign@outlook.com if you experience any problems.");
+        } else if (iosPlatforms.indexOf(platform) !== -1) {
+          scriptdownload = 'No iOS app yet!';
+        } else if (windowsPlatforms.indexOf(platform) !== -1) {
+          scriptdownload = 'Download for Windows (Vista, 7, 8.x, 10)';
+          document.getElementById("unix").hidden = true;
+        } else if (/Android/.test(userAgent)) {
+          scriptdownload = 'No Android app yet!';
+        } else if (!os && /Linux/.test(platform)) {
+          scriptdownload = 'Download for Linux';
+          document.getElementById("windows").hidden = true;
+          alert("This has been tested in Ubuntu. Please contect modernhtmldesign@outlook.com if you experience any problems.");
+        }
+        return scriptdownload;
+      }
+      var returnDownload = downloadApp();
+    </script>
+    <script>
+    function appType() {
+    document.getElementById("downloadText").innerHTML = scriptdownload;
+    }
+</script>
+  <h2>Download</h2>
+        <h3 id="downloadText"></h3>
+        <br>
+        <a href="Windows-Setup.zip" download="Setup.zip">
+            <button id="windows" class="resetosbutton">Download for Windows</button>
+        </a>
+        <br>
+        <br>
+        <br>
+        <a href="Unix-Setup.zip" download="Setup.zip">
+            <button id="unix" class="resetosbutton">Download for macOS and Linux</button>
+        </a>
     </div>
   </body>
 </html>
